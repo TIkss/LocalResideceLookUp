@@ -1,0 +1,20 @@
+{
+    "name": "HomeStayLookUp",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "nodemon app.js"
+    },
+    "dependencies": {
+        "express": "latest",
+        "jade": "*",
+        "mongodb": "*",
+        "nodemon": "*",
+        "passport": "*",
+        "passport-local": "*",
+        "passport-facebook": "*",
+        "mongoose": "~3.6.4",
+        "connect-flash": "*",
+        "connect-roles": "latest"
+    }
+}
