@@ -9,20 +9,16 @@ UserSchema = mongoose.Schema({
     salt:       String,
     hash:       String,
     role:       String,
-    dateSign:   Date,
-    phone:      String,
-    student:{
-        idPic:      Buffer,
-        passport:   Buffer,
-    },
-    owner:{
-        homePic:    Buffer,
-        address:    String
-    }
+    gender:     String,
+    birthday:   {type:String,default:""},
+    address:    {type:String,default:""},
+    description:{type:String,default:""},
+    dateSign:   {type:Date,default: Date.now()},
+    phone:      {type:String,default:""}
 });
 
 
-UserSchema.statics.signup = function(email, password,role, done){
+UserSchema.statics.signup = function(email, password,role,firstName,lastName, done){
     var User = this;
     hash(password, function(err, salt, hash){
         if(err) throw err;
@@ -31,6 +27,8 @@ UserSchema.statics.signup = function(email, password,role, done){
             email : email,
             salt : salt,
             role: role,
+            firstName: firstName,
+            lastName: lastName,
             hash : hash
         }, function(err, user){
             if(err) throw err;
@@ -38,7 +36,26 @@ UserSchema.statics.signup = function(email, password,role, done){
             done(null, user);
         });
     });
-}
+};
+
+UserSchema.statics.save = function (firstName, lastName, email, phone, description, address, gender, birthday, done) {
+    var User = this;
+    User.update({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        description: description,
+        address: address,
+        gender: gender,
+        birthday: birthday
+    }, function (err, user) {
+        if (err) throw err;
+        // if (err) return done(err);
+        done(null, user);
+    });
+};
+
 
 
 UserSchema.statics.isValidUserPassword = function(email, password, done) {

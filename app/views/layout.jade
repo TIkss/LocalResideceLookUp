@@ -1,12 +1,61 @@
 doctype 5
 html
     head
-        title Home stay app
+        title LocalResidenceLookUp
         block links
-            link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
+            link(rel='stylesheet', href='../css/style.css')
+            link(rel='stylesheet', href='../bower_components/bootstrap/dist/css/bootstrap.css')
     body
-        div.container
-            block content
-        script(src='bower_components/jquery/jquery.min.js')
-        script(src='bower_components/bootstrap/dist/js/bootstrap.min.js')
+        div.header
+            block header
+                div
+                    a#logo(href="/")
+                        img(src="../images/logo.gif", alt= "logo")
+
+                    if user && user.email
+                        div.navigation
+                            ul(class="first")
+                                li.first
+                                    a(href="#")  Inbox
+                                li
+                                    a(href="profile")  #{user.firstName}
+                                li
+                                    a(href="dashboard")  Dashboard
+                                li
+                                    a(href="/logout")  Logout
+
+
+                    else
+                        div.navigation
+                            ul.first
+                                li.first
+                                    a(href="signup")  sign up
+                                li
+                                    a(href="login") login
+                            ul
+                                li
+                                    a(href="about") about us
+                                li
+                                    a(href="about") cities
+                    form.search
+                        input(type="text", placeholder="search city,location or school..")
+                        input#submit(type="submit" value="")
+
+                    div(id="signupModal",class="modal hide fade",tabindex="-1",role="dialog",aria-hidden="true")
+                        div.modal-header
+                            button(class="close",type="button", data-dismiss="modal",aria-hidden="true")    x
+                            h3   Modal header
+                        div.modal-body
+                            p   One fine body..
+                        div.modal-footer
+                            button.btn(data-dismiss="modal", aria-hidden="true") close
+                            button(class="btn btn-primary") Save changes
+        div.body
+            block body
+        div.footer
+            block footer
+
+        script(src="http://code.jquery.com/jquery-1.9.1.js")
+        script(src="http://code.jquery.com/jquery-migrate-1.2.1.js")
+        script(src='../bower_components/bootstrap/dist/js/bootstrap.min.js')
         block scripts

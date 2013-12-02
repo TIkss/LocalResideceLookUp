@@ -1,6 +1,92 @@
-if user
-	h1 #{user.email}'s Profile    role #{user.role}
-else
-	h1 #{user.email}'s Profile
+extend dashboard
 
-a(href="/logout") Logout
+block dashBody
+	div(class= "well well-sm col-md-4")
+		div(class="list-group")
+
+				a(href="#edit_profile",data-toggle="tab",class="list-group-item active") Edit Profile
+					span(class="glyphicon glyphicon-edit pull-right")
+
+				a(href="#uploadPic",data-toggle="tab",class="list-group-item") Upload pic or video
+					span(class="glyphicon glyphicon-upload pull-right")
+
+	div(class="panel panel-info col-md-8 tab-content")
+		div#edit_profile(class= "tab-pane active")
+			form(role="form",class="form-horizontal",method="POST",action="/edit_profile")
+				fieldset
+					legend
+						span(class="glyphicon glyphicon-ok col-md-offset-1") Required
+
+					div.form-group
+						label(for="#firstName",class="control-label col-md-3") First Name
+						div.col-md-9
+							input#firstName(type="text",name="firstName",class="form-control",placeholder="First Name",value="#{user.firstName}")
+
+					div.form-group
+						label(for="#lastName",class="control-label col-md-3") Last Name
+						div.col-md-9
+							input#lastName(type="text",name="lastName",class="form-control",placeholder="Last Name",value="#{user.lastName}")
+
+					div.form-group
+						label(for="#gender",class="control-label col-md-3") Gender
+						div.col-md-4
+							select#gender(class="form-control",name="gender")
+								option(value="") ----
+								option(value="Male") Male
+								option(value="Female") Female
+								option(value="Other") Other
+						button(type="button",class="btn  btn-xs btn-info",data-toggle="tooltip" title="This is only shared when you are signing rental agreement.") PRIVATE
+
+					div.form-group(id="datapickerfield")
+						label(for="#birthday",class="control-label col-md-3") Birth Date
+						div.col-md-5
+							input#birthday(type="text",class="form-control",name="birthday",placeholder="Pick a date",value="#{user.birthday}")
+						button(type="button",class="btn  btn-xs btn-info",data-toggle="tooltip" title="This is only shared when you are signing rental agreement.") PRIVATE
+
+					div.form-group
+						label(for="#email",class="control-label col-md-3") Email
+						div(class="col-md-7 input-group")
+							span.input-group-addon @
+							input#email(type="email",name="email",class="form-control ",placeholder="email",value="#{user.email}")
+						button(type="button",class="btn  btn-xs btn-info",data-toggle="tooltip" title="This is only shared when you are signing rental agreement.") PRIVATE
+
+					div.form-group
+						label(for="#phone",class="control-label col-md-3") Phone
+						div.col-md-6
+							input#phone(type="tel",name="phone",class="form-control",placeholder="phone #.",value="#{user.phone}")
+						button(type="button",class="btn  btn-xs btn-info",data-toggle="tooltip" title="This is only shared when you are signing rental agreement.") PRIVATE
+
+					div.form-group
+						label(for="#address",class="control-label col-md-3") Address
+						div.col-md-9
+							input#address(type="text",name="address",class="form-control",placeholder="where do you live",value="#{user.address}")
+
+					div.form-group
+						label(for="#describe",class="control-label col-md-3") Describe yourself
+						div.col-md-9
+							textarea#describe(name="description",class="form-control",rows="5")  #{user.description}
+
+				div
+					button(class="btn btn-primary",type="submit") Save
+				br
+		div#uploadPic(class= "tab-pane")
+			h1 edit2
+
+block append links
+	link(rel='stylesheet', href='../css/datepicker.css')
+
+block append scripts
+	script(src='../bower_components/bootstrap/dist/js/bootstrap-datepicker.js')
+	script
+		$('.list-group-item').on('click',function(e){
+			var previous = $(this).closest(".list-group").children(".active");
+			previous.removeClass('active'); // previous list-item
+			$(e.target).addClass('active'); // activated list-item
+		});
+
+		$('#datapickerfield input').datepicker({
+			startView: 2,
+			todayBtn: "linked",
+			orientation: "bottom left",
+			autoclose: true
+		});

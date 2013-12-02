@@ -1,8 +1,28 @@
-form(id="signup", method="POST", action="/signup")
-    lable(for='email') Email
-    input#email(type='text', name='email')
-    lable(for='password') Password
-    input#password(type='text', name='password')
-    lable(for='role') Role
-    input#role(type='text', name='role')
-    input(type="submit", value="SignUp")
+extends layout
+
+block body
+	div(class="col-md-4")
+		form(id="signup", method="POST", action="/signup",role="form")
+			div.form-group
+				lable(for='firstName') First Name
+				input#firstName(type='text', name='firstName',class="form-control",placeholder="First Name")
+			div.form-group
+				lable(for='lastName') Last Name
+				input#lastName(type='text', name='lastName',class="form-control",placeholder="Last Name")
+			div.form-group
+				lable(for='email') Email
+				input#email(type='email', name='email',class="form-control",placeholder="Enter email")
+			div.form-group
+				lable(for='password') Password
+				input#password(type='password', name='password',class="form-control",placeholder="Password")
+			div.btn-group(data-toggle="buttons")
+				lable(class="btn btn-primary active")  student
+					input#op1(type='radio', name='role',value="student")
+				lable(class="btn btn-primary")   place owner
+					input#op2(type='radio', name='role',value="owner")
+				lable(class="btn btn-primary")    admin
+					input#op3(type='radio', name='role',value="admin")
+			div.submit
+				br
+				input(class="btn btn-info",type="submit", value="Sign Up")
+

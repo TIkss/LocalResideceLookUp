@@ -1,14 +1,14 @@
 module.exports = {
     development: {
-        db: 'mongodb://localhost/passport-tut',
+        db: 'mongodb://localhost/development_LRLU',
         app: {
-            name: 'Homestay'
-        },
+            name: 'Local residence look up'
+        }
     },
     production: {
         db: process.env.MONGOLAB_URI || process.env.MONGOHQ_URL,
         app: {
-            name: 'Passport Authentication Tutorial'
+            name: 'Local residence look up'
         },
         facebook: {
             clientID: "clientID",
@@ -16,4 +16,4 @@ module.exports = {
             callbackURL: "{{production callbackURL}}"
         }
     }
-}
+};

@@ -18,7 +18,7 @@ fs.readdirSync(models_dir).forEach(function (file) {
     require(models_dir+'/'+ file);
 });
 
-require('./config/passport')(passport, config)
+require('./config/passport')(passport, config);
 
 var app = express();
 
@@ -26,6 +26,7 @@ app.configure(function () {
     app.set('port', process.env.PORT || 3000);
     app.set('views', __dirname + '/app/views');
     app.set('view engine', 'jade');
+    app.use(express.static(__dirname + '/app'));
     app.use(express.favicon());
     app.use(express.logger('dev'));
     app.use(express.cookieParser());
@@ -65,7 +66,7 @@ app.use(function(req, res, next){
 role.use('access admin',function (req) {
     if (req.isAuthenticated() && req.currentUser.role === 'admin') {
         return true;
-    }
+    };
 });
 
 role.use('access home owner', function (req) {

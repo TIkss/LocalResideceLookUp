@@ -1,11 +1,18 @@
-form(action='/login', method='post')
-    div
-        label Email:
-        input(type='text', name='email')
-      div
-        label Password:
-        input(type='password', name='password')
-      div
-        input(type='submit', value='Log In')
+extends layout
+
+block body
+	div(class="col-md-4")
+		form( method="POST", action="/login",role="form")
+			div.form-group
+				lable(for='email') Email
+				input#email(type='email', name='email',class="form-control",placeholder="Enter email")
+			div.form-group
+				lable(for='password') Password
+				input#password(type='password', name='password',class="form-control",placeholder="Password")
+			div.submit
+				br
+				input(class="btn btn-info",type="submit", value="Log In")
+
+
 
 
