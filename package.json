@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "start": "nodemon app.js"
+        "start": "nodemon app.js ./node_modules/blueimp-file-upload-node/server.js"
     },
     "dependencies": {
         "express": "latest",
@@ -15,6 +15,8 @@
         "passport-facebook": "*",
         "mongoose": "~3.6.4",
         "connect-flash": "*",
-        "connect-roles": "latest"
+        "connect-roles": "latest",
+        "blueimp-file-upload-node": "latest",
+        "imagemagick":  "*"
     }
 }

@@ -39,6 +39,7 @@ app.configure(function () {
     app.use(flash());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
+
 });
 
 app.configure('development', function () {
@@ -66,7 +67,7 @@ app.use(function(req, res, next){
 role.use('access admin',function (req) {
     if (req.isAuthenticated() && req.currentUser.role === 'admin') {
         return true;
-    };
+    }
 });
 
 role.use('access home owner', function (req) {

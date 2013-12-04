@@ -1,5 +1,7 @@
 var User = require('../app/models/user');
 var Auth = require('./middleware/authorization.js');
+var Path = require('path'),
+    fs = require('fs');
 
 
 module.exports = function(app, passport,role){
@@ -45,9 +47,24 @@ module.exports = function(app, passport,role){
                 });
             });
     });
+
+    app.post('/upload_image',function(req,res){
+        var filePath = req.files.avatarImage.path;
+        var fileName = ''+req.currentUser.id+Path.extname(req.files.avatarImage.name);
+        var targetPath = Path.resolve(__dirname+ "/../uploads/"+fileName);
+        fs.rename(filePath,targetPath, function (err) {
+            if(err) throw err;
+            console.log("Upload completed!");
+            res.redirect("back");
+        });
+
+    });
+
     app.get('/admin', role.can('access admin'), function (req, res) {
         res.render('admin',{ user : req.currentUser});
     });
+
+
 
     app.get('/student', role.can('access student profile'), function (req, res) {
         res.render('student',{ user : req.currentUser});
@@ -61,6 +78,7 @@ module.exports = function(app, passport,role){
         res.render("profile", { user : req.currentUser});
     });
 
+
     app.post("/edit_profile", Auth.isAuthenticated , function(req, res){
         User.save(
             req.body.firstName,
@@ -71,7 +89,7 @@ module.exports = function(app, passport,role){
             req.body.address,
             req.body.gender,
             req.body.birthday,
-            function(err, user){
+            function(err){
                 if(err) throw err;
             });
         res.render("dashboard", { user : req.currentUser});
